@@ -8,15 +8,15 @@ import retrofit2.http.GET
 
 interface InterfaceApi {
     @GET("people") // <- Nombre de lasendpoints
-    suspend fun  obtenerPersonajes(): Response<ListaALLamar>
+    suspend fun obtenerPersonajes(): Response<ListaALLamar>
 
 
     // MAS ENDPOINTS
     @GET("planets")
-    suspend fun  obtenerPlanetas(): Response<ListaPlanetas>
+    suspend fun obtenerPlanetas(): Response<ListaPlanetas>
 
 
     @GET("starships")
-    suspend fun  obtenerNaves(): Response<ListaNaves>
+    suspend fun obtenerNaves(): Response<ListaNaves>
 
 }
