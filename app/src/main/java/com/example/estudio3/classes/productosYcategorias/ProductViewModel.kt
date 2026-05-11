@@ -1,11 +1,10 @@
 package com.example.estudio3.classes.productosYcategorias
 
-import com.example.estudio3.API.StarwarsViewModel
+import com.example.estudio3.apiFuncional.API.StarwarsViewModel
 import com.example.estudio3.R
-import com.example.estudio3.classes.conApi.Naves
-import com.example.estudio3.classes.conApi.Personajes
-import com.example.estudio3.classes.conApi.Planetas
-import com.example.estudio3.classes.productosYcategorias.ProductMofrl
+import com.example.estudio3.apiFuncional.classes.Naves
+import com.example.estudio3.apiFuncional.classes.Personajes
+import com.example.estudio3.apiFuncional.classes.Planetas
 
 class ProductViewModel {
 
@@ -51,7 +50,7 @@ class ProductViewModel {
                 uid = "nada",
 
                 Nombre = "Producto 3",
-                imagen = R.drawable.golshi,
+                imagen = R.drawable.imagenxd,
                 gusto = true
             )
         )
@@ -120,18 +119,42 @@ class ProductViewModel {
             4 -> { // PERSONAJES
                 when (uid) {
                     "1" -> R.drawable.luke
+                    "2" -> R.drawable.c3po
+                    "3" -> R.drawable.rd2d2
+                    "4" -> R.drawable.darthvader
+                    "5" -> R.drawable.leia
+                    "6" -> R.drawable.owen
+                    "7" -> R.drawable.beru
+                    "8" -> R.drawable.r5d4
+                    "9" -> R.drawable.biggs
+                    "10" -> R.drawable.obi
                     else -> R.drawable.personajes // Imagen por defecto
                 }
             }
             5 -> { // PLANETAS
                 when (uid) {
                     "1" -> R.drawable.tatoine
-                    else -> R.drawable.planetas
+                    "2" -> R.drawable.alderaan
+                    "3" -> R.drawable.yavin
+                    in "4" .. "10" -> R.drawable.nada
+
+
+                    else -> R.drawable.nada
                 }
             }
             6 -> { // NAVES
                 when (uid) {
                     "9" -> R.drawable.deathstar
+                    "2" -> R.drawable.cr90
+                    "5" -> R.drawable.zentinel_negvv
+                    "11" -> R.drawable.ywing
+                    "10" -> R.drawable.nada
+                    "13" -> R.drawable.nada
+                    "15" -> R.drawable.executor
+                    "12" -> R.drawable.xwing
+                    "17" -> R.drawable.rebeltransport
+
+
                     else -> R.drawable.naves
                 }
             }

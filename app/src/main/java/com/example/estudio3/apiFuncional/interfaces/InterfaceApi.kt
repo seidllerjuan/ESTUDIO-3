@@ -1,8 +1,8 @@
-package com.example.estudio3.interfaces
+package com.example.estudio3.apiFuncional.interfaces
 
-import com.example.estudio3.classes.conApi.ListaALLamar
-import com.example.estudio3.classes.conApi.ListaNaves
-import com.example.estudio3.classes.conApi.ListaPlanetas
+import com.example.estudio3.apiFuncional.classes.ListaALLamar
+import com.example.estudio3.apiFuncional.classes.ListaNaves
+import com.example.estudio3.apiFuncional.classes.ListaPlanetas
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -18,8 +18,5 @@ interface InterfaceApi {
 
     @GET("starships")
     suspend fun  obtenerNaves(): Response<ListaNaves>
-
-
-
 
 }

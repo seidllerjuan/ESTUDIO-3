@@ -1,7 +1,9 @@
-package com.example.estudio3.classes.conApi
+package com.example.estudio3.apiFuncional.classes
 
 import kotlinx.serialization.Serializable
 
+
+//ESTAS DATACLASES SON LLAMDAS EN INTERFACE
 @Serializable
 data class ListaALLamar(
     val message: String,
@@ -19,6 +21,8 @@ data class ListaNaves(
 )
 
 
+
+//Estas data clases son llamadas en Metodos api y starwarsviewmodel, igual en productviewmodel
 @Serializable
 data class Personajes(
     val uid: String,

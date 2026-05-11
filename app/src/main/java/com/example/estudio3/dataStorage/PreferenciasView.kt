@@ -22,10 +22,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @Composable
-fun PreferenciasView(){
+fun PreferenciasView(navegar: NavHostController){
     // Paso 8: Instanciamos la clase y la corrutina[cite: 35, 36].
     val context = LocalContext.current
     val preferences = remember { preferenciasClase(context) }
@@ -123,6 +124,14 @@ fun PreferenciasView(){
             modifier = Modifier.padding(top = 16.dp).fillMaxWidth()
         ) {
             Text("Limpiar Todo")
+        }
+        Button(
+            onClick = {
+                navegar.navigate("Category")
+            },
+            modifier = Modifier.padding(top = 16.dp).fillMaxWidth()
+        ) {
+            Text("Volver")
         }
     }
 }

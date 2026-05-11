@@ -1,16 +1,15 @@
 package com.example.estudio3.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,18 +18,19 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.estudio3.classes.productosYcategorias.ProductViewModel
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import coil3.compose.AsyncImage
-import com.example.estudio3.API.StarwarsViewModel
-import com.example.estudio3.R
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import androidx.core.R
+import com.example.estudio3.apiFuncional.API.StarwarsViewModel
 
 @Composable
 fun ProducTview(
@@ -52,11 +52,24 @@ fun ProducTview(
     val datos = ProductViewModel().seleccionador(Seleccionado.value, swViewModel)
     val filtrados = datos.filter { it.Nombre.uppercase().contains(busqueda.value.uppercase()) }
 
-    Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+    Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
 
-        Button(onClick = { navegar.navigate("Category") }) {
-            Text("Regresar")
+        Box(
+            Modifier                        //para que la barra superior se mantenga estatica
+                .fillMaxWidth()
+                .size(45.dp)
+                .padding(5.dp).align(Alignment.CenterHorizontally)
+        ) {
+
+            Text("Elije un Producto", Modifier.padding(start = 15.dp))
+            Button(
+                onClick = { navegar.navigate("Category") }      //regresar a cetgorias
+                , Modifier.align(Alignment.TopEnd)) {
+                Text("Cerrar")
+            }
         }
+
+
 
         Text("Filtrar resultados:", modifier = Modifier.padding(top = 10.dp))
         androidx.compose.material3.TextField(
@@ -67,7 +80,7 @@ fun ProducTview(
             singleLine = true,
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         // --- LÓGICA DEL LOADER ---
         // Si la lista original está vacía y no hemos escrito nada en el buscador,
@@ -115,5 +128,7 @@ fun ProducTview(
                 }
             }
         }
+
+        Column() { }
     }
 }

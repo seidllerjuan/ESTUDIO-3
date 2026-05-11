@@ -1,9 +1,9 @@
-package com.example.estudio3.API
+package com.example.estudio3.apiFuncional.API
 
-import com.example.estudio3.classes.conApi.Naves
-import com.example.estudio3.classes.conApi.Personajes
-import com.example.estudio3.classes.conApi.Planetas
-import com.example.estudio3.retrofit.RetrofitClient
+import com.example.estudio3.apiFuncional.classes.Naves
+import com.example.estudio3.apiFuncional.classes.Personajes
+import com.example.estudio3.apiFuncional.classes.Planetas
+import com.example.estudio3.apiFuncional.retrofit.RetrofitClient
 
 class MetodosApi {
     private val service = RetrofitClient.servicio
@@ -14,7 +14,7 @@ class MetodosApi {
         return if (response.isSuccessful) {
             response.body()?.results ?: emptyList() //
         } else {
-            emptyList() // [cite: 44]
+            emptyList()
         }
     }
 

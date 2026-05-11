@@ -1,18 +1,16 @@
-package com.example.estudio3.API
+package com.example.estudio3.apiFuncional.API
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.estudio3.classes.conApi.ListaNaves
-import com.example.estudio3.classes.conApi.Naves
-import com.example.estudio3.classes.conApi.Personajes
-import com.example.estudio3.classes.conApi.Planetas
+import com.example.estudio3.apiFuncional.classes.Naves
+import com.example.estudio3.apiFuncional.classes.Personajes
+import com.example.estudio3.apiFuncional.classes.Planetas
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 
 class StarwarsViewModel: ViewModel() {

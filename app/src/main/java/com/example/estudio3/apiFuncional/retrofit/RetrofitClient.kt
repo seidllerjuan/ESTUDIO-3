@@ -1,6 +1,6 @@
-package com.example.estudio3.retrofit
+package com.example.estudio3.apiFuncional.retrofit
 
-import com.example.estudio3.interfaces.InterfaceApi
+import com.example.estudio3.apiFuncional.interfaces.InterfaceApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

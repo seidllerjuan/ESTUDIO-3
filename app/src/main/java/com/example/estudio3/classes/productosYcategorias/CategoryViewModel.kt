@@ -24,7 +24,7 @@ class CategoryViewModel {
             categoriasModel(
                 id = 3,
                 nombre = "Categoria 3",
-                imaegn = R.drawable.golshi
+                imaegn = R.drawable.imagenxd
             )
         )
 

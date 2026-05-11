@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.estudio3.classes.productosYcategorias.categoriasModel
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import com.example.estudio3.R
 
 @Composable
 //Instanciamos la data class no la clase
@@ -42,22 +46,47 @@ fun CategoryView(navegar: NavHostController,
                  Mostrarcategorias: List<categoriasModel>,
                  ElementoSeleccionado: MutableState<Int>){
 
-    Column(Modifier.fillMaxSize(),
+    Column(Modifier.fillMaxSize().padding(20.dp),
         verticalArrangement = Arrangement.SpaceEvenly) {
-        Box(
-            Modifier                        //para que la barra superior se mantenga estatica
+        Row(
+            modifier = Modifier
                 .fillMaxWidth()
-                .size(45.dp)
-                .padding(5.dp).align(Alignment.CenterHorizontally)
+                .height(56.dp) // Altura estándar de una TopBar
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically, // Alinea todo al centro vertical
+            horizontalArrangement = Arrangement.SpaceBetween // Separa los elementos proporcionalmente
         ) {
+            // 1. Imagen/Icono de perfil
+            Image(
+                painter = painterResource(id = R.drawable.perfil),
+                contentDescription = "Perfil",
+                modifier = Modifier
+                    .size(40.dp) // Tamaño fijo para que no se deforme
+                    .clip(CircleShape).clickable{
+                        navegar.navigate("data")
 
-            Text("Elije una Categoria", Modifier.padding(start = 15.dp))
+                    }, // Opcional: hace la imagen circular
+                contentScale = ContentScale.Crop
+            )
+
+            // 2. Texto central (usamos weight para que empuje al botón a la derecha)
+            Text(
+                text = "Elije una Categoria",
+                modifier = Modifier
+                    .padding(start = 12.dp)
+                    .weight(1f), // Toma el espacio disponible
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            // 3. Botón de cerrar
             Button(
-                onClick = { navegar.navigate("Home") }      //regresar a inicio
-                , Modifier.align(Alignment.TopEnd)) {
-                Text("Cerrar Libro")
+                onClick = { navegar.navigate("Home") },
+                contentPadding = PaddingValues(horizontal = 16.dp)
+            ) {
+                Text("Cerrar")
             }
         }
+
 
         LazyColumn(
             modifier = Modifier

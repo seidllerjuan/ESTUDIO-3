@@ -7,8 +7,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.estudio3.API.StarwarsViewModel
+import com.example.estudio3.apiFuncional.API.StarwarsViewModel
 import com.example.estudio3.classes.productosYcategorias.CategoryViewModel
+import com.example.estudio3.dataStorage.PreferenciasView
 import com.example.estudio3.views.CategoryView
 import com.example.estudio3.views.HomeView
 import com.example.estudio3.views.Information
@@ -21,7 +22,7 @@ fun NavManager(){
     val Categorias = remember{ CategoryViewModel().GenerateCategory()}
     val ElementoSeleccionado = remember { mutableStateOf(0) }
 
-    //INSTNACIAMOS LA CLASE
+    //INSTNACIAMOS LA CLASE que llama al apiu
     val swViewModel: StarwarsViewModel = viewModel()
 
     val verInformacionDe = remember { mutableStateOf(0) }
@@ -42,6 +43,10 @@ fun NavManager(){
         composable("info") {
             // Le pasamos el swViewModel para buscar los datos y ElementoSeleccionado para saber la categoría
             Information(navController, verInformacionDe, swViewModel, ElementoSeleccionado)
+        }
+
+        composable("data"){
+            PreferenciasView(navController)
         }
 
     }
