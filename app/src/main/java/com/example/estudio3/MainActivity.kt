@@ -15,6 +15,7 @@ import com.example.estudio3.API.StarwarsViewModel
 import com.example.estudio3.ui.theme.Estudio3Theme
 import com.example.estudio3.views.PantallaStarWars
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.estudio3.dataStorage.PreferenciasView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +23,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Estudio3Theme {
+                PreferenciasView()
 
 
-                NavManager()
+//                NavManager()
 //                PantallaStarWars(viewModel = swViewModel)
             }
         }
