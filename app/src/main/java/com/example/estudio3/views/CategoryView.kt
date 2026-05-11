@@ -51,7 +51,7 @@ fun CategoryView(navegar: NavHostController,
                 .padding(5.dp).align(Alignment.CenterHorizontally)
         ) {
 
-            Text("Elije un Dragón", Modifier.padding(start = 15.dp))
+            Text("Elije una Categoria", Modifier.padding(start = 15.dp))
             Button(
                 onClick = { navegar.navigate("Home") }      //regresar a inicio
                 , Modifier.align(Alignment.TopEnd)) {

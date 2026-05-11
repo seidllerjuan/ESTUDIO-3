@@ -1,6 +1,7 @@
 package com.example.estudio3.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -26,46 +27,89 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import coil3.compose.AsyncImage
+import com.example.estudio3.API.StarwarsViewModel
 import com.example.estudio3.R
 
-
 @Composable
-fun ProducTview(navegar: NavHostController, Seleccionado: MutableState<Int>){
+fun ProducTview(
+    navegar: NavHostController,
+    Seleccionado: MutableState<Int>,
+    swViewModel: StarwarsViewModel,
+    UidSeleccionada: MutableState<Int>
+) {
+    val busqueda = androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf("") }
 
-    var ELECCION = ProductViewModel().seleccionador(Seleccionado.value)
-    Column(modifier = Modifier.fillMaxSize()) {
-        // Botón Volver arriba (Fijo)
-        Button(
-            onClick = { navegar.navigate("Category") },
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text("Volver a Categorías")
+    androidx.compose.runtime.LaunchedEffect(Seleccionado.value) {
+        when (Seleccionado.value) {
+            4 -> swViewModel.fetchPersonajes()
+            5 -> swViewModel.fetchPlanetas()
+            6 -> swViewModel.fetchNaves()
+        }
+    }
+
+    val datos = ProductViewModel().seleccionador(Seleccionado.value, swViewModel)
+    val filtrados = datos.filter { it.Nombre.uppercase().contains(busqueda.value.uppercase()) }
+
+    Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+
+        Button(onClick = { navegar.navigate("Category") }) {
+            Text("Regresar")
         }
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(ELECCION) { producto ->
-                // Tarjeta de Producto Estilizada
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Column {
-                        Image(
-                            painter = painterResource(id = producto.imagen),
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxWidth().height(200.dp),
-                            contentScale = ContentScale.Crop // Mejor que FillBounds
-                        )
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(text = producto.Nombre, style = MaterialTheme.typography.headlineSmall)
-                            Text(
-                                text = if (producto.gusto) "❤️ Favorito" else "🤍 Sin marcar",
-                                color = if (producto.gusto) Color.Red else Color.Gray
+        Text("Filtrar resultados:", modifier = Modifier.padding(top = 10.dp))
+        androidx.compose.material3.TextField(
+            value = busqueda.value,
+            onValueChange = { busqueda.value = it },
+            placeholder = { Text("Escribe un nombre...") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // --- LÓGICA DEL LOADER ---
+        // Si la lista original está vacía y no hemos escrito nada en el buscador,
+        // significa que la API sigue cargando.
+        if (datos.isEmpty()) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            ) {
+                androidx.compose.material3.CircularProgressIndicator() // El círculo de carga
+                Spacer(modifier = Modifier.height(10.dp))
+                Text("Cargando datos de la API...")
+            }
+        } else {
+            // Si ya hay datos, mostramos la lista normal
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(filtrados) { p ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth().clickable {
+                            UidSeleccionada.value = p.uid.toIntOrNull() ?: 0
+                            navegar.navigate("info")
+                        }
+                    ) {
+                        Column {
+                            Image(
+                                painter = painterResource(id = p.imagen),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxWidth().height(180.dp),
+                                contentScale = ContentScale.Crop
                             )
+
+                            Column(modifier = Modifier.padding(10.dp)) {
+                                Text(text = p.Nombre, style = MaterialTheme.typography.titleLarge)
+                                Text(
+                                    text = if (p.gusto) "Es favorito" else "No es favorito",
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
                         }
                     }
                 }

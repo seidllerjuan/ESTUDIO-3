@@ -11,6 +11,7 @@ import com.example.estudio3.API.StarwarsViewModel
 import com.example.estudio3.classes.productosYcategorias.CategoryViewModel
 import com.example.estudio3.views.CategoryView
 import com.example.estudio3.views.HomeView
+import com.example.estudio3.views.Information
 import com.example.estudio3.views.ProducTview
 
 @Composable
@@ -23,6 +24,9 @@ fun NavManager(){
     //INSTNACIAMOS LA CLASE
     val swViewModel: StarwarsViewModel = viewModel()
 
+    val verInformacionDe = remember { mutableStateOf(0) }
+
+
     NavHost(navController, startDestination = "Home"){
         composable("Home"){
             HomeView(navController)
@@ -32,7 +36,12 @@ fun NavManager(){
         }
 
         composable("productos"){
-            ProducTview(navController,ElementoSeleccionado)
+            ProducTview(navController,ElementoSeleccionado,swViewModel,verInformacionDe)
+        }
+
+        composable("info") {
+            // Le pasamos el swViewModel para buscar los datos y ElementoSeleccionado para saber la categoría
+            Information(navController, verInformacionDe, swViewModel, ElementoSeleccionado)
         }
 
     }

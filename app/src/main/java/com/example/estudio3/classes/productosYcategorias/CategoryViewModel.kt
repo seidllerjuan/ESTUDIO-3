@@ -29,6 +29,30 @@ class CategoryViewModel {
         )
 
 
+        categoryList.add(
+            categoriasModel(
+                id = 4,
+                nombre = "Personajes",
+                imaegn = R.drawable.personajes
+            )
+        )
+        categoryList.add(
+            categoriasModel(
+                id = 5,
+                nombre = "planetas",
+                imaegn = R.drawable.planetas
+            )
+        )
+
+        categoryList.add(
+            categoriasModel(
+                id = 6,
+                nombre = "naves",
+                imaegn = R.drawable.naves
+            )
+        )
+
+
         return categoryList
     }
 }
