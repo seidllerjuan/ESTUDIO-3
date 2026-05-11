@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,7 +63,7 @@ fun CategoryView(navegar: NavHostController,
                 contentDescription = "Perfil",
                 modifier = Modifier
                     .size(40.dp) // Tamaño fijo para que no se deforme
-                    .clip(CircleShape).clickable{
+                    .clip(CircleShape).clickable {
                         navegar.navigate("data")
 
                     }, // Opcional: hace la imagen circular
@@ -107,8 +108,10 @@ fun CategoryView(navegar: NavHostController,
                     shape = RoundedCornerShape(24.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
                 ) {
+                    // Usamos un solo Box para que TODO se encime (Fondo -> Degradado -> Textos -> Icono)
                     Box(modifier = Modifier.fillMaxSize()) {
-                        // 1. Imagen de fondo
+
+                        // 1. Imagen de fondo (Capas de abajo hacia arriba)
                         Image(
                             painter = painterResource(id = categoria.imaegn),
                             contentDescription = null,
@@ -116,25 +119,25 @@ fun CategoryView(navegar: NavHostController,
                             contentScale = ContentScale.Crop
                         )
 
-                        // 2. NUEVO Overlay (Degradado desde ARRIBA para legibilidad)
+                        // 2. Overlay Degradado
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .background(
                                     brush = androidx.compose.ui.graphics.Brush.verticalGradient(
                                         colors = listOf(
-                                            Color.Black.copy(alpha = 0.7f), // Oscuro arriba
-                                            Color.Transparent              // Transparente abajo
+                                            Color.Black.copy(alpha = 0.6f),
+                                            Color.Transparent
                                         ),
-                                        endY = 400f // El degradado termina rápido para no tapar toda la foto
+                                        endY = 400f
                                     )
                                 )
                         )
 
-                        // 3. Contenedor de texto MOVIDO HACIA ARRIBA
+                        // 3. Textos (Arriba a la izquierda)
                         Column(
                             modifier = Modifier
-                                .align(Alignment.TopCenter) // <--- CAMBIO AQUÍ (De Bottom a Top)
+                                .align(Alignment.TopStart) // Alineado a la izquierda
                                 .padding(20.dp)
                         ) {
                             Text(
@@ -149,10 +152,22 @@ fun CategoryView(navegar: NavHostController,
                                 style = MaterialTheme.typography.labelSmall
                             )
                         }
+
+                        // 4. ICONO DE CLASE (Arriba a la derecha)
+                        // Al estar dentro del mismo Box, flotará sobre la imagen
+                        Image(
+                            painter = painterResource(id = R.drawable.perfil),
+                            contentDescription = "class",
+                            modifier = Modifier
+                                .padding(16.dp) // Margen desde la esquina
+                                .size(45.dp)
+                                .clip(CircleShape)
+                                .align(Alignment.TopEnd), // <--- ESTO LO ENVÍA A LA ESQUINA DERECHA
+                            contentScale = ContentScale.Crop
+                        )
                     }
                 }
             }
-        }
 // Cambia el LazyColumn por este LazyVerticalGrid
 //        LazyVerticalGrid(
 //            columns = GridCells.Fixed(2), // <--- ¡Esto crea las dos columnas!
@@ -208,5 +223,6 @@ fun CategoryView(navegar: NavHostController,
 //                }
 //            }
 //        }
+        }
     }
 }
